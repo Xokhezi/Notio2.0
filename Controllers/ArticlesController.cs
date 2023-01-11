@@ -27,15 +27,24 @@ namespace Notio2._0.Controllers
         public async Task<IEnumerable<ArticleResource>> GetArticles()
         {
             var articles = await context.Articles.Include(a => a.Tags).ToListAsync();
-            return mapper.Map<IEnumerable<Article>,IEnumerable<ArticleResource>>(articles);            
+            return mapper.Map<IEnumerable<Article>, IEnumerable<ArticleResource>>(articles);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetArticle(int id)
+        {
+            var article = await context.Articles.SingleOrDefaultAsync(a => a.Id == id);
+            var articleResource = mapper.Map<Article, ArticleResource>(article);
+
+            return Ok(articleResource);
         }
 
+        [HttpPost]
         public async Task<IActionResult> CreateArticle([FromBody] ArticleResource articleResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var article = mapper.Map<ArticleResource,Article>(articleResource);
+            var article = mapper.Map<ArticleResource, Article>(articleResource);
 
             article.Date = DateTime.Now;
             context.Articles.Add(article);
@@ -43,14 +52,36 @@ namespace Notio2._0.Controllers
 
             return Ok(article);
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetArticle(int id)
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateArticle([FromBody] ArticleResource articleResource)
         {
-            var article = await context.Articles.SingleOrDefaultAsync(a => a.Id == id);
-            var articleResource = mapper.Map<Article, ArticleResource>(article);
-            
-            return Ok(articleResource);
+            if (!ModelState.IsValid)
+                return NotFound(ModelState);
+
+            var article = await context.Articles.Include(a => a.Tags).SingleOrDefaultAsync(a => a.Id == articleResource.Id);
+            var test = mapper.Map<ArticleResource, Article>(articleResource);
+
+            foreach (var a in article.Tags)
+                context.Tags.Remove(a);
+
+            await context.SaveChangesAsync();
+
+            article.Topic = test.Topic;
+            article.User = test.User;
+            article.Text = test.Text;
+            article.Summary = test.Summary;
+            article.Public = test.Public;
+            article.Tags = test.Tags;
+            article.Date = DateTime.Now;
+
+            await context.SaveChangesAsync();
+
+
+            return Ok(test);
+
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteArticle(int id)
         {
