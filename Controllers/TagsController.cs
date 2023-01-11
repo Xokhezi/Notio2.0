@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Notio2._0.Controllers.Persistence;
 using Notio2._0.Models;
+using Notio2._0.Controllers.Resources;
 
 namespace Notio2._0.Controllers
 {
@@ -15,23 +17,19 @@ namespace Notio2._0.Controllers
     public class TagsController : Controller
     {
        private readonly NotioDbContext context;
+       private readonly IMapper mapper;
 
-        public TagsController(NotioDbContext context)
+        public TagsController(NotioDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<IEnumerable<Tag>> GetTags()
+        public async Task<IEnumerable<TagResource>> GetTags()
         {
-            return await context.Tags.ToListAsync();
+            var tags = await context.Tags.ToListAsync();
+            return mapper.Map<IEnumerable<Tag>,IEnumerable<TagResource>>(tags);
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTag(int id)
-        {
-            var tag=await context.Tags.SingleOrDefaultAsync(a=>a.Id==id);
-            context.Tags.Remove(tag);
-            await context.SaveChangesAsync();
-            return Ok();
-        }
+       
     }
 }

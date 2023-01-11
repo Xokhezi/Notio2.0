@@ -1,11 +1,13 @@
 using Notio2._0.Controllers.Persistence;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<NotioDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 var app = builder.Build();
