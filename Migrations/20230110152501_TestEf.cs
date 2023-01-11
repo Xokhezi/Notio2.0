@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
+
 #nullable disable
 
 namespace Notio2._0.Migrations
