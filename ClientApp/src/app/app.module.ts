@@ -1,7 +1,9 @@
+import { ArticlesService } from './services/articles.service';
+import { FormsModule } from '@angular/forms';
 import { NewComponent } from './new/new.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -21,14 +23,16 @@ import { ArticlesComponent } from './articles/articles.component';
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
-    FormsModule,
+    FormsModule,    
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'articles', component: ArticlesComponent},
-      { path: 'articles/{id}', component: NewComponent},        
+      { path: 'articles/new', component: NewComponent},        
     ])
   ],
-  providers: [],
+  providers: [
+    ArticlesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

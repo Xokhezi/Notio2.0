@@ -12,4 +12,8 @@ export class ArticlesService {
   {
     return this.http.get('https://localhost:7036/api/articles');
   }
+  CreateArticle(article:any)
+  {
+    return this.http.post('https://localhost:7036/api/articles', article);
+  }
 }
