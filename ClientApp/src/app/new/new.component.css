@@ -1,0 +1,10 @@
+.tags{
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    gap: 5px;
+
+}
+.click{
+    cursor: pointer;
+}

@@ -17,7 +17,8 @@ import { ArticlesComponent } from './articles/articles.component';
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,    
+    HomeComponent,
+    NewComponent,    
     ArticlesComponent
   ],
   imports: [

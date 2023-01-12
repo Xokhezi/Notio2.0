@@ -1,5 +1,7 @@
 import { ArticlesService } from './../services/articles.service';
 import { Component, OnInit } from '@angular/core';
+import { any, forEach, indexOf } from 'underscore';
+import { EMPTY, empty, of } from 'rxjs';
 
 @Component({
   selector: 'app-new',
@@ -7,37 +9,52 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new.component.css']
 })
 export class NewComponent implements OnInit {
-  article={"topic": "testForm",
-  "user": "API",
-  "text": "asda",
-  "summary": "lorem ipsum testum jedum okejoum krasnum popisum",
-  "public": true,    
-  "tags": [{"name":"KArel"},{"name":"oj"}]    };
-  inputTag:any;
-  tags:any;
+  article = {
+    topic: "",
+    user: "CurrentUser",
+    text: "",
+    summary: "",
+    public: true,
+    tags: [{ "name": "test" }, { "name": "oj" }]
+  };
+  inputTag: any;
+  tags: any;
 
-  constructor(private ariclesService:ArticlesService) {}
+
+  constructor(private ariclesService: ArticlesService) { }
 
   ngOnInit(): void {
+    this.tags = [];
   }
 
-  addTag()
-  {
-    let tagToUp = this.inputTag?.toUpperCase();
-    console.log(tagToUp);
-    if(!this.tags.includes(tagToUp))
-      this.tags.push(tagToUp);
-    
+  addTag() {
+    let tagToUp = { name: this.inputTag?.toUpperCase() };
+    let tagIncluded = false;
 
+    for (let t of this.article.tags)
+      tagIncluded = t.name == this.inputTag.toUpperCase() ? true : false;
+
+    if (!tagIncluded) {
+      if (this.article.tags.length <= 4)
+        this.article.tags.push(tagToUp);
+    }
+    this.inputTag=""; 
   }
-  submit()
-  {
+
+  switchPublic() {
+    this.article.public = !this.article.public;
+  }
+  removeTag(tag: any) {
+    let index = this.article.tags.indexOf(tag);
+    this.article.tags.splice(index, 1);
+  }
+  submit() {
     this.ariclesService.CreateArticle(this.article)
-    .subscribe(r=>{
-      console.log(r);
-    });
+      .subscribe(r => {
+        console.log(r);
+      });
   }
 
-  }
+}
 
 
