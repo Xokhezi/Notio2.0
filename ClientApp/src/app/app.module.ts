@@ -1,3 +1,4 @@
+import { NewComponent } from './new/new.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +24,8 @@ import { ArticlesComponent } from './articles/articles.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'articles', component: ArticlesComponent},       
+      { path: 'articles', component: ArticlesComponent},
+      { path: 'articles/{id}', component: NewComponent},        
     ])
   ],
   providers: [],

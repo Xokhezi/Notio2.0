@@ -1,1 +1,12 @@
-<p>articles works!</p>
+<div class="container center">
+    <div *ngFor="let a of articles" class="article">        
+        <h5><a [routerLink]="['/articles/{id}']">{{a.topic}}</a></h5>        
+        <p>{{a.summary}}</p>       
+        <div class="tags">
+            <i class="bi"[class.bi-unlock]="a.public"[class.bi-lock]="!a.public" ></i>
+            <button class="btn btn-danger" *ngFor="let t of a.tags">{{t.name}}</button>
+        </div>
+        
+    </div>
+
+</div>
