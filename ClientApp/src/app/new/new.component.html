@@ -1,20 +1,22 @@
 {{article|json}}
-<form>
+<form #f="ngForm">
     <div class="mb-3">
         <label for="topic" class="form-label">Nadpis</label>
-        <input [(ngModel)]="article.topic" name="topic" type="text" class="form-control">
+        <input required  maxlength="50" [(ngModel)]="article.topic" name="topic" #topic="ngModel" type="text" class="form-control">
         <div class="form-text">We'll never share your email with anyone else.</div>
-    </div>
+        <div *ngIf="topic.touched && !topic.valid" class="alert alert-danger">Prosím zadejte nadpis.</div>
+         </div>
     <h3><i class="bi click" [class.bi-unlock]="article.public" [class.bi-lock]="!article.public" (click)="switchPublic()"></i></h3>
     <div class="form-text">Vyber zda tvůj článek bude privátní nebo otevřen všem.</div>
     <div class="mb-3">
-        <label for="summary" class="form-label">Souhrn</label>
-        <input  [(ngModel)]="article.summary" name="summary" type="text" class="form-control">
-
+        <label for="summary" maxlength="50"class="form-label">Souhrn</label>
+        <input required [(ngModel)]="article.summary" name="summary" type="text" class="form-control" #summary="ngModel">
+        <div *ngIf="summary.touched && !summary.valid" class="alert alert-danger">Prosím zadejte souhrn.</div>
     </div>
     <div class="mb-3">
         <label for="text" class="form-label">Text</label>
-        <textarea [(ngModel)]="article.text" name="text" type="text" class="form-control"></textarea>
+        <textarea required [(ngModel)]="article.text" name="text" type="text" class="form-control" #text="ngModel"></textarea>
+        <div *ngIf="text.touched && !text.valid" class="alert alert-danger">Prosím zadejte text.</div>
     </div>
 </form>
 <div class="tags">
@@ -22,10 +24,11 @@
         <label for="text" class="form-label">Témata</label>
         <input *ngIf="this.article.tags.length <= 4" [(ngModel)]="inputTag" (keyup.enter)="addTag()" type="text" class="form-control">
         <div class="tags">
-            <button (click)="removeTag(t)" class="btn btn-danger" *ngFor="let t of article.tags">{{t.name}} <i class="bi bi-x"></i></button>
+            <button (click)="removeTag(t)" class="btn btn-primary" *ngFor="let t of article.tags">{{t.name}} <i class="bi bi-x"></i></button>
         </div>        
         <div class="form-text">Zvol max. 5 témat</div>
+        <div *ngIf="!f.valid && article.tags.length==0" class="form-text">Formulář lze odeslat až po jeho vyplnění.</div>
     </div>
 </div>
 
-<button class="btn btn-primary" (click)="submit()">test</button>
+<button class="btn btn-danger" *ngIf="f.valid && article.tags.length>0" (click)="submit()">test</button>

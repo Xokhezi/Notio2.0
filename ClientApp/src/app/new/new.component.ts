@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { any, forEach, indexOf } from 'underscore';
 import { EMPTY, empty, of } from 'rxjs';
 
+interface tag {
+  name: string;
+}
 @Component({
   selector: 'app-new',
   templateUrl: './new.component.html',
@@ -15,30 +18,43 @@ export class NewComponent implements OnInit {
     text: "",
     summary: "",
     public: true,
-    tags: [{ "name": "test" }, { "name": "oj" }]
+    tags: [{ name: "empty" }]
   };
   inputTag: any;
-  tags: any;
+  tags: any
+
 
 
   constructor(private ariclesService: ArticlesService) { }
 
   ngOnInit(): void {
     this.tags = [];
+    for (let t of this.article.tags) {
+      if (t.name === "empty")
+        this.removeTag(t);
+    }
   }
 
   addTag() {
-    let tagToUp = { name: this.inputTag?.toUpperCase() };
-    let tagIncluded = false;
+    if(this.inputTag!=null && this.inputTag!=""){
+      let tagToUp = { name: this.inputTag?.toUpperCase() };
+      let tagIncluded = 0;
+  
+      for (let t of this.article.tags)      
+        {
+          if(t.name == this.inputTag.toUpperCase())
+            tagIncluded++;
+        }
+            
+              
+      if (tagIncluded!=1) {
+        if (this.article.tags.length <= 4)
+          this.article.tags.push(tagToUp);
+      }
+      this.inputTag = "";
 
-    for (let t of this.article.tags)
-      tagIncluded = t.name == this.inputTag.toUpperCase() ? true : false;
-
-    if (!tagIncluded) {
-      if (this.article.tags.length <= 4)
-        this.article.tags.push(tagToUp);
     }
-    this.inputTag=""; 
+   
   }
 
   switchPublic() {
@@ -49,10 +65,24 @@ export class NewComponent implements OnInit {
     this.article.tags.splice(index, 1);
   }
   submit() {
-    this.ariclesService.CreateArticle(this.article)
+
+        this.ariclesService.CreateArticle(this.article)
       .subscribe(r => {
         console.log(r);
+        this.emptyForm();
       });
+      
+  }
+  emptyForm()
+  {
+    this.article={
+      topic: "",
+      user: "CurrentUser",
+      text: "",
+      summary: "",
+      public: true,
+      tags: [{ name: "empty" }]
+    };
   }
 
 }

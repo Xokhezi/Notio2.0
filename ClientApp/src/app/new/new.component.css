@@ -8,3 +8,6 @@
 .click{
     cursor: pointer;
 }
+.miss{
+    border-color: red;
+}
