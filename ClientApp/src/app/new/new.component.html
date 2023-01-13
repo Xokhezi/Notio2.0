@@ -5,12 +5,15 @@
         <label for="topic" class="form-label">Nadpis</label>
         <input required maxlength="50" [(ngModel)]="article.topic" name="topic" #topic="ngModel" type="text"
             class="form-control">
-        <div class="form-text">We'll never share your email with anyone else.</div>
         <div *ngIf="topic.touched && !topic.valid" class="alert alert-danger">Prosím zadejte nadpis.</div>
     </div>
-    <h3><i class="bi click" [class.bi-unlock]="article.public" [class.bi-lock]="!article.public"
-            (click)="switchPublic()"></i></h3>
-    <div class="form-text">Vyber zda tvůj článek bude privátní nebo otevřen všem.</div>
+    <div class="mb-3">
+        <h3><i class="bi click" [class.bi-unlock]="article.public" [class.bi-lock]="!article.public"
+                (click)="switchPublic()"></i></h3>
+        <div *ngIf="!article.public">Soukromý</div>
+        <div *ngIf="article.public">Veřejný</div>
+        <div class="form-text">Vyber zda tvůj článek bude privátní nebo otevřen všem.</div>
+    </div>
     <div class="mb-3">
         <label for="summary" maxlength="50" class="form-label">Souhrn</label>
         <input required [(ngModel)]="article.summary" name="summary" type="text" class="form-control"
@@ -34,7 +37,8 @@
                     class="bi bi-x"></i></button>
         </div>
         <div class="form-text">Zvol max. 5 témat</div>
-        <div *ngIf="!f.valid && article.tags.length==0" class="form-text">Formulář lze odeslat až po jeho vyplnění.
+        <div *ngIf="!f.valid && article.tags.length==0" class="form-text">Formulář lze odeslat až po vyplnění povinných
+            polí.
         </div>
     </div>
 </div>
