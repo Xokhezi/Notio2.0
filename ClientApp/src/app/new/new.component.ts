@@ -3,15 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { any, forEach, indexOf } from 'underscore';
 import { EMPTY, empty, of } from 'rxjs';
 
-interface tag {
-  name: string;
-}
 @Component({
   selector: 'app-new',
   templateUrl: './new.component.html',
   styleUrls: ['./new.component.css']
 })
 export class NewComponent implements OnInit {
+  form: any;
   article = {
     topic: "",
     user: "CurrentUser",
@@ -22,8 +20,7 @@ export class NewComponent implements OnInit {
   };
   inputTag: any;
   tags: any
-
-
+  complete = false;
 
   constructor(private ariclesService: ArticlesService) { }
 
@@ -36,25 +33,24 @@ export class NewComponent implements OnInit {
   }
 
   addTag() {
-    if(this.inputTag!=null && this.inputTag!=""){
+    if (this.inputTag != null && this.inputTag != "") {
       let tagToUp = { name: this.inputTag?.toUpperCase() };
       let tagIncluded = 0;
-  
-      for (let t of this.article.tags)      
-        {
-          if(t.name == this.inputTag.toUpperCase())
-            tagIncluded++;
-        }
-            
-              
-      if (tagIncluded!=1) {
+
+      for (let t of this.article.tags) {
+        if (t.name == this.inputTag.toUpperCase())
+          tagIncluded++;
+      }
+
+
+      if (tagIncluded != 1) {
         if (this.article.tags.length <= 4)
           this.article.tags.push(tagToUp);
       }
       this.inputTag = "";
 
     }
-   
+
   }
 
   switchPublic() {
@@ -64,25 +60,22 @@ export class NewComponent implements OnInit {
     let index = this.article.tags.indexOf(tag);
     this.article.tags.splice(index, 1);
   }
-  submit() {
+  submit(f: any) {
 
-        this.ariclesService.CreateArticle(this.article)
+    this.ariclesService.CreateArticle(this.article)
       .subscribe(r => {
         console.log(r);
-        this.emptyForm();
       });
-      
+    f.reset();
+    this.article.tags = [];
+    this.done();
+
   }
-  emptyForm()
-  {
-    this.article={
-      topic: "",
-      user: "CurrentUser",
-      text: "",
-      summary: "",
-      public: true,
-      tags: [{ name: "empty" }]
-    };
+  done() {
+    setTimeout(() => {
+      this.complete = false;
+    }, 3000)
+    this.complete = true;
   }
 
 }
