@@ -2,11 +2,12 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    max-height: max-content;
     margin: 0px; 
 }
 
 .article {
-    background-color: white;
+    background-color: #E0FFFF;
     margin-top: 10px;
     padding: 15px;
     display: flex;
@@ -15,7 +16,21 @@
     width: auto;
     min-width: 700px;
     border-radius: 19px;
-    border: solid  1px;
+    
+    box-shadow:
+  2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+  6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+  12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+  22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+  41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+  100px 100px 80px rgba(0, 0, 0, 0.07)
+;
+}
+.description{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding-left: 25px;
 }
 
 .tags {
@@ -27,6 +42,8 @@
 
 button {
     border-radius: 10px;
+    height: 35px;
+    width: fit-content;
 }
 
 .center {

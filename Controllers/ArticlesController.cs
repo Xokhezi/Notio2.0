@@ -32,7 +32,7 @@ namespace Notio2._0.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetArticle(int id)
         {
-            var article = await context.Articles.SingleOrDefaultAsync(a => a.Id == id);
+            var article = await context.Articles.Include(a => a.Tags).SingleOrDefaultAsync(a => a.Id == id);
             var articleResource = mapper.Map<Article, ArticleResource>(article);
 
             return Ok(articleResource);

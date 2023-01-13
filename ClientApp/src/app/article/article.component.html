@@ -1,0 +1,11 @@
+<h1>
+    <i class="bi" [class.bi-arrow-left-circle]="!cursorOn" [class.bi-arrow-left-circle-fill]="cursorOn"
+        (mouseenter)="switchCursorOn()" (mouseleave)="switchCursorOn()"
+        [routerLink]="['/articles']">
+    </i>
+</h1>
+<h2>{{article.topic}}</h2>
+<div class="tags">
+    <button class="btn btn-secondary" *ngFor="let t of article.tags">{{t.name}}</button>
+</div>
+<p>{{article.text}}</p>

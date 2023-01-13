@@ -1,12 +1,12 @@
 <div class="container center">
-    <div *ngFor="let a of articles" class="article">        
-        <h5><a [routerLink]="['/articles/{id}']">{{a.topic}}</a></h5>        
-        <p>{{a.summary}}</p>       
+    <div *ngFor="let a of articles" class="article">
+        <div class="description">
+            <h5><a [routerLink]="['/article/',a.id]">{{a.topic}}</a></h5>        
+        <p>{{a.summary}}</p>   
+        </div>                    
         <div class="tags">
-            <i class="bi"[class.bi-unlock]="a.public"[class.bi-lock]="!a.public" ></i>
-            <button class="btn btn-danger" *ngFor="let t of a.tags">{{t.name}}</button>
-        </div>
-        
+            <h4><i class="bi"[class.bi-unlock]="a.public"[class.bi-lock]="!a.public" ></i></h4>
+            <button class="btn btn-secondary" *ngFor="let t of a.tags">{{t.name}}</button>
+        </div>        
     </div>
-
 </div>
