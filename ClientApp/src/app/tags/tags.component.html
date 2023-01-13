@@ -1,0 +1,8 @@
+<div>
+    <input class="form-control" type="text" [(ngModel)]="searchInput" (keyup)="searchTag()">
+</div>
+<div>
+    <ul>
+        <li *ngFor="let t of tags">{{t}}</li>
+    </ul>
+</div>
