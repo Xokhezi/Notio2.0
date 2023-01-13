@@ -13,12 +13,7 @@ export class TagsComponent implements OnInit {
 
   ngOnInit(): void {
     this.tags = [];
-    this.service.getTags()
-      .subscribe(t => {
-        this.tags = t;
-        this.sortTags();
-      });
-
+    this.getTags();
   }
 
   sortTags() {
@@ -38,7 +33,7 @@ export class TagsComponent implements OnInit {
     let tagsToUp = [];
     let arrayTag = "";
     let results: any[] = [];
-
+        
     if (this.searchInput != '' && this.searchInput != null) {
       for (let t of this.tags)
         tagsToUp.push(t.toUpperCase())
@@ -52,8 +47,16 @@ export class TagsComponent implements OnInit {
               results.push(t)
         }
       }
-      console.log(results);
+      this.tags = results;
     }
-
+    else
+      this.getTags();
+  }
+  getTags() {
+    this.service.getTags()
+      .subscribe(t => {
+        this.tags = t;
+        this.sortTags();
+      });
   }
 }
