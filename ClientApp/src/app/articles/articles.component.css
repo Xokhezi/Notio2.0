@@ -39,6 +39,10 @@
     gap: 10px;
 
 }
+.gp10 {
+   display: flex;
+   gap: 10px;
+}
 
 button {
     border-radius: 10px;
