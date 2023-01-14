@@ -16,24 +16,11 @@ export class TagsComponent implements OnInit {
     this.getTags();
   }
 
-  sortTags() {
-    let allTags: any[] = [];
-    let tagsSorted: any[] = [];
-
-    for (let t of this.tags)
-      allTags.push(t.name);
-
-    for (let t of allTags) {
-      if (!tagsSorted.includes(t))
-        tagsSorted.push(t);
-    }
-    this.tags = tagsSorted;
-  }
   searchTag() {
     let tagsToUp = [];
     let arrayTag = "";
     let results: any[] = [];
-        
+
     if (this.searchInput != '' && this.searchInput != null) {
       for (let t of this.tags)
         tagsToUp.push(t.toUpperCase())
@@ -56,7 +43,7 @@ export class TagsComponent implements OnInit {
     this.service.getTags()
       .subscribe(t => {
         this.tags = t;
-        this.sortTags();
+        this.tags=this.service.sortTags(this.tags);
       });
   }
 }
