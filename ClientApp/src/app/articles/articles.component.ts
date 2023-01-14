@@ -11,12 +11,12 @@ export class ArticlesComponent implements OnInit {
   articles: any;
   inputTag: any;
   tags: any;
-  selectedtags: any;
-  validTag: any;
+  selectedTags: any;
+  inValidTag: any;
   constructor(private articlesService: ArticlesService, private tagsService: TagsService) { }
 
   ngOnInit(): void {
-    this.selectedtags = [];
+    this.selectedTags = [];
     this.getArticles();
     this.tagsService.getTags()
       .subscribe(r => this.tags = this.tagsService.sortTags(r))
@@ -26,53 +26,51 @@ export class ArticlesComponent implements OnInit {
     let results = [];
     let checks = 0;
 
-    if(this.selectedtags.length!=0)
-    {
+    if (this.selectedTags.length != 0) {
       for (let a of this.articles) {
         for (let t of a.tags)
-          tagsNames.push(t.name);      
-  
-        for (let t of this.selectedtags) {
+          tagsNames.push(t.name);
+
+        for (let t of this.selectedTags) {
           if (tagsNames.includes(t))
-            checks++;        
+            checks++;
         }
-              
-        if (checks === this.selectedtags.length)
-            results.push(a);
-        
-        checks=0;
-        tagsNames = [];      
+
+        if (checks === this.selectedTags.length)
+          results.push(a);
+
+        checks = 0;
+        tagsNames = [];
       }
-      
-      this.articles=results;
+
+      this.articles = results;
       console.log(results)
     }
     else
       this.getArticles();
-   
+
   }
   addTag() {
     let inputUp = this.inputTag.toUpperCase();
     if (inputUp != '' && inputUp != null) {
-      if (!this.selectedtags.includes(inputUp)) {
+      if (!this.selectedTags.includes(inputUp)) {
         if (this.tags.includes(inputUp)) {
-          this.selectedtags.push(inputUp);
-          this.validTag = true;
+          this.selectedTags.push(inputUp);
+          this.inValidTag = false;
           this.inputTag = '';
         }
         else
-          this.validTag = false;
+          this.inValidTag = true;
       }
     }
     this.filterArticles();
   }
   removeTag(t: any) {
-    let index = this.selectedtags.indexOf(t);
-    this.selectedtags.splice(index, 1);
+    let index = this.selectedTags.indexOf(t);
+    this.selectedTags.splice(index, 1);
     this.filterArticles();
   }
-  getArticles()
-  {
+  getArticles() {
     this.articlesService.GetArticles()
       .subscribe(r => this.articles = r);
   }

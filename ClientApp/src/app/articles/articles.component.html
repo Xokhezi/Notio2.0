@@ -1,13 +1,14 @@
 <div class="container center">
     <div>
-        <input [(ngModel)]="inputTag" (keyup.enter)="addTag()" type="text" class="form-control">
+        <input *ngIf="this.selectedTags.length<5" [(ngModel)]="inputTag" (keyup.enter)="addTag()" type="text" class="form-control">
         <div class="form-text">Zadejte tag.</div>
+        <div *ngIf="inValidTag" class="form-text">Nejedná se o existující Tag.Přehled tagů najdete v sekci <a>tagy</a>
+        </div>
         <div class="gp10">
-            <button (click)="removeTag(t)" *ngFor="let t of selectedtags" class="btn btn-secondary">{{t}}<i
+            <button (click)="removeTag(t)" *ngFor="let t of selectedTags" class="btn btn-secondary">{{t}}<i
                     class="bi bi-x"></i></button>
         </div>
-        <div *ngIf="!validTag" class="form-text">Nejedná se o existující Tag.Přehled tagů najdete v sekci <a>tagy</a>
-        </div>
+       
     </div>
     <div *ngFor="let a of articles" class="article">
         <div class="description">
