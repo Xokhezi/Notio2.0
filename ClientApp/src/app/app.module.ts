@@ -16,6 +16,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
 import { TagsComponent } from './tags/tags.component';
 import { AdminComponent } from './admin/admin.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -26,11 +27,12 @@ import { AdminComponent } from './admin/admin.component';
     ArticlesComponent,
      ArticleComponent,
      TagsComponent,
-     AdminComponent
-  ],
+     AdminComponent,
+      ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    MatProgressSpinnerModule,
     FormsModule,    
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
