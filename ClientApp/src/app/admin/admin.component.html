@@ -1,6 +1,6 @@
 <div class="container center">
     <div>
-        <div *ngIf="deleted" class="alert alert-success" role="alert">Article úspěšně odeslán.</div>
+        <div *ngIf="deleted" class="alert alert-success" role="alert">Článek úspěšně vymazán.</div>
         <input *ngIf="this.selectedTags.length<5" [(ngModel)]="inputTag" (keyup.enter)="addTag()" type="text"
             class="form-control">
         <div class="form-text">Zadejte tag.</div>

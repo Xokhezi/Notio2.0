@@ -84,6 +84,6 @@ export class AdminComponent implements OnInit {
               this.deleted = true;
             }, 2000)
           }
-        })
+        })        
   }
 }
