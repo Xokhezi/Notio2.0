@@ -6,8 +6,6 @@
 /tmp
 /out-tsc
 
-/ClientApp/.angular/cache
-
 # dependencies
 /node_modules
 
