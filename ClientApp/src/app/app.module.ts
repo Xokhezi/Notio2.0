@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
 import { TagsComponent } from './tags/tags.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TagsComponent } from './tags/tags.component';
     NewComponent,    
     ArticlesComponent,
      ArticleComponent,
-     TagsComponent
+     TagsComponent,
+     AdminComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -36,6 +38,7 @@ import { TagsComponent } from './tags/tags.component';
       { path: 'tags', component: TagsComponent},
       { path: 'articles/new', component: NewComponent},        
       {path:'article/:id',component:ArticleComponent},
+      { path: 'admin', component: AdminComponent},
     ])
   ],
   providers: [

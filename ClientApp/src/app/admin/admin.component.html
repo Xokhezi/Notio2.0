@@ -1,0 +1,26 @@
+<div class="container center">
+    <div>
+        <div *ngIf="deleted" class="alert alert-success" role="alert">Article úspěšně odeslán.</div>
+        <input *ngIf="this.selectedTags.length<5" [(ngModel)]="inputTag" (keyup.enter)="addTag()" type="text"
+            class="form-control">
+        <div class="form-text">Zadejte tag.</div>
+        <div *ngIf="inValidTag" class="form-text">Nejedná se o existující Tag.Přehled tagů najdete v sekci <a>tagy</a>
+        </div>
+        <div class="gp10">
+            <button (click)="removeTag(t)" *ngFor="let t of selectedTags" class="btn btn-secondary">{{t}}<i
+                    class="bi bi-x"></i></button>
+        </div>
+    </div>
+    <div *ngFor="let a of articles" class="article">
+        <div class="description">
+            <h5>{{a.topic}}</h5>
+            <p>{{a.summary}}</p>
+            <p>{{a.user}}<i class="bi" [class.bi-unlock]="a.public" [class.bi-lock]="!a.public"></i></p>
+
+        </div>
+        <div class="tags">
+            <button class="btn btn-secondary" *ngFor="let t of a.tags">{{t.name}}</button>
+            <button (click)="removeArt(a.id)" class="btn btn-danger">Smazat</button>
+        </div>
+    </div>
+</div>
