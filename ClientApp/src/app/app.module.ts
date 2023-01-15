@@ -17,6 +17,7 @@ import { ArticleComponent } from './article/article.component';
 import { TagsComponent } from './tags/tags.component';
 import { AdminComponent } from './admin/admin.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
       { path: 'articles/new', component: NewComponent},        
       {path:'article/:id',component:ArticleComponent},
       { path: 'admin', component: AdminComponent},
-    ])
+    ]), BrowserAnimationsModule
   ],
   providers: [
     ArticlesService,

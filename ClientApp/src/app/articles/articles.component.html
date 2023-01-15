@@ -1,5 +1,6 @@
 <div class="container center">
-    <mat-progress-spinner></mat-progress-spinner>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+
     <div>
         <input *ngIf="this.selectedTags.length<5" [(ngModel)]="inputTag" (keyup.enter)="addTag()" type="text" class="form-control">
         <div class="form-text">Zadejte tag.</div>

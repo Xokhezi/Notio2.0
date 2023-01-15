@@ -6,6 +6,8 @@
 /tmp
 /out-tsc
 
+/ClientApp/.angular/cache/15.1.1/angular-webpack/
+
 # dependencies
 /node_modules
 
