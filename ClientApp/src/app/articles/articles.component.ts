@@ -13,13 +13,18 @@ export class ArticlesComponent implements OnInit {
   tags: any;
   selectedTags: any;
   inValidTag: any;
+  loading=true;
   constructor(private articlesService: ArticlesService, private tagsService: TagsService) { }
 
   ngOnInit(): void {
     this.selectedTags = [];
     this.getArticles();
     this.tagsService.getTags()
-      .subscribe(r => this.tags = this.tagsService.sortTags(r))
+      .subscribe(r =>{
+        this.tags = this.tagsService.sortTags(r);
+        this.loading=false;
+        
+      })
   }
   filterArticles() {
     let tagsNames = [];
