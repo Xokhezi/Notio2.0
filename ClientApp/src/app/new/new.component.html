@@ -1,3 +1,4 @@
+<div *ngIf="!submitted">
 <div *ngIf="complete" class="alert alert-success" role="alert">Článek úspěšně uložen.</div>
 <h2>Nový článek</h2>
 <form #f="ngForm" (ngSubmit)="submit(f)">
@@ -43,3 +44,12 @@
     </div>
 </div>
 <button class="btn btn-danger" *ngIf="f.valid && article.tags.length>0" (click)="submit(f)">Uložit</button>
+</div>
+<div *ngIf="submitted">
+    <h1>{{article.topic}}</h1>
+    <h2>Soubory <i class="bi bi-cloud-plus"></i></h2>
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupFile01">Upload</label>
+        <input (change)="uploadPhoto(fileInput)" #fileInput type="file" class="form-control" id="inputGroupFile01">
+    </div>
+</div>

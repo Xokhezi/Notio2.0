@@ -10,6 +10,7 @@ import { EMPTY, empty, of } from 'rxjs';
 })
 export class NewComponent implements OnInit {
   form: any;
+  submitted=false;
   article = {
     topic: "",
     user: "CurrentUser",
@@ -60,15 +61,20 @@ export class NewComponent implements OnInit {
     let index = this.article.tags.indexOf(tag);
     this.article.tags.splice(index, 1);
   }
+  uploadPhoto(input:any)
+  {
+
+  }
   submit(f: any) {
 
     this.ariclesService.CreateArticle(this.article)
       .subscribe(r => {
         console.log(r);
       });
-    f.reset();
-    this.article.tags = [];
+    //f.reset();
+    //this.article.tags = [];
     this.done();
+    this.submitted=true;
 
   }
   done() {

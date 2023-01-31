@@ -11,3 +11,8 @@
 .miss{
     border-color: red;
 }
+.add{
+    height: 200;
+    width: 200;
+    background-color: grey;
+}
