@@ -1,7 +1,9 @@
+import { PhotosService } from './../services/photos.service';
 import { ArticlesService } from './../services/articles.service';
 import { Component, OnInit } from '@angular/core';
 import { any, forEach, indexOf } from 'underscore';
 import { EMPTY, empty, of } from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-new',
@@ -10,8 +12,12 @@ import { EMPTY, empty, of } from 'rxjs';
 })
 export class NewComponent implements OnInit {
   form: any;
-  submitted=false;
+  subscription: any;
+  progress = 0;
+  photos: any;
+  submitted = false;
   article = {
+    id: 0,
     topic: "",
     user: "CurrentUser",
     text: "",
@@ -23,9 +29,10 @@ export class NewComponent implements OnInit {
   tags: any
   complete = false;
 
-  constructor(private ariclesService: ArticlesService) { }
+  constructor(private ariclesService: ArticlesService, private photoService: PhotosService) { }
 
   ngOnInit(): void {
+    this.photos = [];
     this.tags = [];
     for (let t of this.article.tags) {
       if (t.name === "empty")
@@ -61,21 +68,36 @@ export class NewComponent implements OnInit {
     let index = this.article.tags.indexOf(tag);
     this.article.tags.splice(index, 1);
   }
-  uploadPhoto(input:any)
-  {
-
+  uploadPhoto(input: any) {
+    const file: File = input.files[0];
+    this.subscription = this.photoService.upload(this.article.id, file)
+      .subscribe((x: any) => {        
+        if (x.type === HttpEventType.UploadProgress) {
+          this.progress = Math.round(100 * x.loaded / x.total);
+        }
+      });
+     this.refreshPhoto();
+  }
+  refreshPhoto() {
+    this.photoService.getPhotos(this.article.id)
+      .subscribe(p => this.photos = p);
   }
   submit(f: any) {
 
     this.ariclesService.CreateArticle(this.article)
-      .subscribe(r => {
-        console.log(r);
+      .subscribe((r: any) => {
+        console.log(r.id);
+        this.article.id = r.id;
       });
     //f.reset();
     //this.article.tags = [];
     this.done();
-    this.submitted=true;
+    this.submitted = true;
 
+  }
+  uploadFinish()
+  {
+    this.submitted=false;
   }
   done() {
     setTimeout(() => {
