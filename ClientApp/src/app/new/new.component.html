@@ -47,6 +47,7 @@
     <button class="btn btn-danger" *ngIf="f.valid && article.tags.length>0" (click)="submit(f)">Uložit</button>
 </div>
 <div *ngIf="submitted">
+    <mat-progress-bar *ngIf="progress!=0 && progress !=100" mode="determinate" value="{{progress}}"></mat-progress-bar>
     <h1>{{article.topic}}</h1>
     <h2>Soubory <i class="bi bi-cloud-plus"></i></h2>
     <div class="input-group mb-3">

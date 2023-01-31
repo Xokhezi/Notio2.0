@@ -69,6 +69,7 @@ export class NewComponent implements OnInit {
     this.article.tags.splice(index, 1);
   }
   uploadPhoto(input: any) {
+    this.progress=0;
     const file: File = input.files[0];
     this.subscription = this.photoService.upload(this.article.id, file)
       .subscribe((x: any) => {        

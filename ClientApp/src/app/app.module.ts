@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NewComponent } from './new/new.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -16,7 +17,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
 import { TagsComponent } from './tags/tags.component';
 import { AdminComponent } from './admin/admin.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -24,24 +25,26 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    NewComponent,    
+    NewComponent,
     ArticlesComponent,
-     ArticleComponent,
-     TagsComponent,
-     AdminComponent,
-      ],
+    ArticleComponent,
+    TagsComponent,
+    AdminComponent,
+    
+  ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     MatProgressSpinnerModule,
-    FormsModule,    
+    MatProgressBarModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'articles', component: ArticlesComponent},
-      { path: 'tags', component: TagsComponent},
-      { path: 'articles/new', component: NewComponent},        
-      {path:'article/:id',component:ArticleComponent},
-      { path: 'admin', component: AdminComponent},
+      { path: 'articles', component: ArticlesComponent },
+      { path: 'tags', component: TagsComponent },
+      { path: 'articles/new', component: NewComponent },
+      { path: 'article/:id', component: ArticleComponent },
+      { path: 'admin', component: AdminComponent },
     ]), BrowserAnimationsModule
   ],
   providers: [
