@@ -15,10 +15,12 @@ namespace Notio2._0.Mapping
             //mapping from domain to API resources
             CreateMap<Article, ArticleResource>();
             CreateMap<Tag, TagResource>();
+            CreateMap<Photo, PhotoResource>();
 
             //api resource to domain
             CreateMap<ArticleResource, Article>();
             CreateMap<TagResource, Tag>();
+            CreateMap<PhotoResource, Photo>();
         }
     }
 }

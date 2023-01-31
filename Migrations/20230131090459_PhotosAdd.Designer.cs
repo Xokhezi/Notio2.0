@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Notio2._0.Controllers.Persistence;
 
@@ -11,9 +12,11 @@ using Notio2._0.Controllers.Persistence;
 namespace Notio2._0.Migrations
 {
     [DbContext(typeof(NotioDbContext))]
-    partial class NotioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230131090459_PhotosAdd")]
+    partial class PhotosAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +17,12 @@ namespace Notio2._0.Models
         public bool Public { get; set; }
 
         public ICollection<Tag> Tags { get; set; }
+        public ICollection<Photo>Photos { get; set; }
+        public Article()
+        {
+            Tags = new Collection<Tag>();
+            Photos =new Collection<Photo>();
+        }
 
     }
 }

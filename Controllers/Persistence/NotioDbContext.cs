@@ -14,6 +14,8 @@ namespace Notio2._0.Controllers.Persistence
         }
             public DbSet<Article> Articles { get; set; }
             public DbSet<Tag> Tags { get; set; }
+            public DbSet<Photo> Photos { get; set; }
+
         
     }
 }
