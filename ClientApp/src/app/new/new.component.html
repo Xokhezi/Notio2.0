@@ -54,7 +54,7 @@
         <button (click)="uploadPhoto(fileInput)" class="btn btn-primary">Nahrát</button>
         <input  #fileInput type="file" class="form-control" id="inputGroupFile01">
     </div>
-    <button (click)="uploadFinish()" class="btn btn-primary">Hotovo</button>
+    <a class="btn btn-primary" [routerLink]="['/articles']">Hotovo</a  >
     <div>
        
         <img *ngFor="let photo of photos" class="img-thumbnail" src="https://localhost:7036/uploads/{{photo.name}}">

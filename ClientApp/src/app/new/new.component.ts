@@ -75,31 +75,27 @@ export class NewComponent implements OnInit {
       .subscribe((x: any) => {        
         if (x.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * x.loaded / x.total);
+          this.refreshPhoto();
         }
       });
-     this.refreshPhoto();
+     
   }
   refreshPhoto() {
     this.photoService.getPhotos(this.article.id)
       .subscribe(p => this.photos = p);
   }
   submit(f: any) {
-
+    
     this.ariclesService.CreateArticle(this.article)
       .subscribe((r: any) => {
         console.log(r.id);
         this.article.id = r.id;
-      });
-    //f.reset();
-    //this.article.tags = [];
+      });    
     this.done();
     this.submitted = true;
 
   }
-  uploadFinish()
-  {
-    this.submitted=false;
-  }
+  
   done() {
     setTimeout(() => {
       this.complete = false;
