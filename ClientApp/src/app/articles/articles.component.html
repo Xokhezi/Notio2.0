@@ -14,7 +14,7 @@
     </div>
     <div *ngFor="let a of articles" class="article">
         <div class="description">
-            <h5><a [routerLink]="['/article/',a.id]">{{a.topic}}</a></h5>
+            <h2><a [routerLink]="['/article/',a.id]">{{a.topic}}</a></h2>
             <p>{{a.summary}}</p>
         </div>
         <div class="tags">

@@ -9,3 +9,4 @@
     <button class="btn btn-secondary" *ngFor="let t of article.tags">{{t.name}}</button>
 </div>
 <p>{{article.text}}</p>
+<img *ngFor="let photo of photos" class="img-thumbnail" src="https://localhost:7036/uploads/{{photo.name}}">
