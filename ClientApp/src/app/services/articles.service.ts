@@ -8,9 +8,9 @@ export class ArticlesService {
 
   constructor(private http:HttpClient) { }
 
-  GetArticles()
+  GetArticles(filter:any)
   {
-    return this.http.get('https://localhost:7036/api/articles');
+    return this.http.get('https://localhost:7036/api/articles'+'?'+this.toQueryString(filter));
   }
   GetArticle(id:any)
   {
@@ -23,5 +23,18 @@ export class ArticlesService {
   CreateArticle(article:any)
   {
     return this.http.post('https://localhost:7036/api/articles', article);
+  }
+  toQueryString(obj:any)
+  {
+    var parts=[];
+    for(var property in obj)
+    {
+      var value =obj[property];
+      if(value !=null && value !=undefined)
+        parts.push(encodeURIComponent(property)+'='+encodeURIComponent(value));
+    }
+
+    return parts.join('&');
+     
   }
 }

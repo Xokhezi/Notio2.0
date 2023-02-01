@@ -24,10 +24,17 @@ namespace Notio2._0.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<IEnumerable<ArticleResource>> GetArticles()
+        public async Task<IEnumerable<ArticleResource>> GetArticles(VehicleQuery query)
         {
             var articles = await context.Articles.Include(a => a.Tags).ToListAsync();
-            return mapper.Map<IEnumerable<Article>, IEnumerable<ArticleResource>>(articles);
+            var queryObj = mapper.Map<IEnumerable<Article>, IEnumerable<ArticleResource>>(articles);
+
+            if (query.Page <= 0)
+                query.Page = 1;
+            if (query.Size <= 0)
+                query.Size = 10;
+
+            return queryObj.Skip((query.Page - 1) * query.Size).Take(query.Size);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetArticle(int id)

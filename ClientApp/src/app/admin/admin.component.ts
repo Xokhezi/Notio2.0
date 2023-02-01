@@ -9,6 +9,8 @@ import { TagsService } from '../services/tags.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  query:any={page:2,size:2   
+  };
   articles: any;
   inputTag: any;
   tags: any;
@@ -24,7 +26,7 @@ export class AdminComponent implements OnInit {
       .subscribe(r => this.tags = this.tagsService.sortTags(r))
   }
   filterArticles() {
-    this.articlesService.GetArticles()
+    this.articlesService.GetArticles(this.query)
       .subscribe((r: any) => {
         this.articles = r.filter((a: any) => {
           let tagsNames = a.tags.map((t: any) => t.name);
@@ -53,7 +55,7 @@ export class AdminComponent implements OnInit {
     this.filterArticles();
   }
   getArticles() {
-    this.articlesService.GetArticles()
+    this.articlesService.GetArticles(this.query)
       .subscribe(r => this.articles = r);
   }
   removeArt(id: any) {

@@ -13,6 +13,8 @@ export class ArticlesComponent implements OnInit {
   tags: any;
   selectedTags: any;
   inValidTag: any;
+  query:any={page:1,size:2   
+  };
   loading = true;
   constructor(private articlesService: ArticlesService, private tagsService: TagsService) { }
 
@@ -27,7 +29,7 @@ export class ArticlesComponent implements OnInit {
       })
   }
   filterArticles() {
-    this.articlesService.GetArticles().subscribe((r:any) => {
+    this.articlesService.GetArticles(this.query).subscribe((r:any) => {
       this.articles = this.selectedTags.length 
         ? r.filter((a:any) => this.selectedTags.every((t:any) => a.tags.map((t:any) => t.name).includes(t)))
         : r;
@@ -54,7 +56,7 @@ export class ArticlesComponent implements OnInit {
     this.filterArticles();
   }
   getArticles() {
-    this.articlesService.GetArticles()
+    this.articlesService.GetArticles(this.query)
       .subscribe(r => this.articles = r);
   }
 }
