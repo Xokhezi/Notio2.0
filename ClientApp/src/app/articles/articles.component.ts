@@ -27,33 +27,23 @@ export class ArticlesComponent implements OnInit {
       })
   }
   filterArticles() {
-    let tagsNames = [];
     let results = [];
-    let checks = 0;
 
     if (this.selectedTags.length != 0) {
       for (let a of this.articles) {
-        for (let t of a.tags)
-          tagsNames.push(t.name);
+        let tagsNames = a.tags.map((t:any) => t.name); // extract tag names
+        let match = this.selectedTags.every((t:any) => tagsNames.includes(t)); // check if all selected tags are included in article's tag names
 
-        for (let t of this.selectedTags) {
-          if (tagsNames.includes(t))
-            checks++;
-        }
-
-        if (checks === this.selectedTags.length)
+        if (match) {
           results.push(a);
-
-        checks = 0;
-        tagsNames = [];
+        }
       }
 
       this.articles = results;
       console.log(results)
-    }
-    else
+    } else {
       this.getArticles();
-
+    }
   }
   addTag() {
     let inputUp = this.inputTag.toUpperCase();

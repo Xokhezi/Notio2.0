@@ -17,28 +17,21 @@ export class TagsComponent implements OnInit {
   }
 
   searchTag() {
-    let tagsToUp = [];
-    let arrayTag = "";
-    let results: any[] = [];
-
+    let results = [];
+  
     if (this.searchInput != '' && this.searchInput != null) {
-      for (let t of this.tags)
-        tagsToUp.push(t.toUpperCase())
-
-      for (let t of tagsToUp) {
-        arrayTag = t.split('');
-
-        for (let letter of arrayTag) {
-          if (this.searchInput.toUpperCase().includes(letter))
-            if (!results.includes(t))
-              results.push(t)
+      let searchInput = this.searchInput.toUpperCase();
+      for (let t of this.tags) {
+        if (t.toUpperCase().includes(searchInput)) {
+          results.push(t);
         }
       }
       this.tags = results;
-    }
-    else
+    } else {
       this.getTags();
+    }
   }
+  
   getTags() {
     this.service.getTags()
       .subscribe(t => {
