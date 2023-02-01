@@ -13,37 +13,25 @@ export class ArticlesComponent implements OnInit {
   tags: any;
   selectedTags: any;
   inValidTag: any;
-  loading=true;
+  loading = true;
   constructor(private articlesService: ArticlesService, private tagsService: TagsService) { }
 
   ngOnInit(): void {
     this.selectedTags = [];
     this.getArticles();
     this.tagsService.getTags()
-      .subscribe(r =>{
+      .subscribe(r => {
         this.tags = this.tagsService.sortTags(r);
-        this.loading=false;
-        
+        this.loading = false;
+
       })
   }
   filterArticles() {
-    let results = [];
-
-    if (this.selectedTags.length != 0) {
-      for (let a of this.articles) {
-        let tagsNames = a.tags.map((t:any) => t.name); // extract tag names
-        let match = this.selectedTags.every((t:any) => tagsNames.includes(t)); // check if all selected tags are included in article's tag names
-
-        if (match) {
-          results.push(a);
-        }
-      }
-
-      this.articles = results;
-      console.log(results)
-    } else {
-      this.getArticles();
-    }
+    this.articlesService.GetArticles().subscribe((r:any) => {
+      this.articles = this.selectedTags.length 
+        ? r.filter((a:any) => this.selectedTags.every((t:any) => a.tags.map((t:any) => t.name).includes(t)))
+        : r;
+    });
   }
   addTag() {
     let inputUp = this.inputTag.toUpperCase();

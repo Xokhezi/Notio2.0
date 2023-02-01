@@ -1,3 +1,4 @@
+import { any } from 'underscore';
 import { Component, OnInit } from '@angular/core';
 import { ArticlesService } from '../services/articles.service';
 import { TagsService } from '../services/tags.service';
@@ -23,33 +24,13 @@ export class AdminComponent implements OnInit {
       .subscribe(r => this.tags = this.tagsService.sortTags(r))
   }
   filterArticles() {
-    let tagsNames = [];
-    let results = [];
-    let checks = 0;
-
-    if (this.selectedTags.length != 0) {
-      for (let a of this.articles) {
-        for (let t of a.tags)
-          tagsNames.push(t.name);
-
-        for (let t of this.selectedTags) {
-          if (tagsNames.includes(t))
-            checks++;
-        }
-
-        if (checks === this.selectedTags.length)
-          results.push(a);
-
-        checks = 0;
-        tagsNames = [];
-      }
-
-      this.articles = results;
-      console.log(results)
-    }
-    else
-      this.getArticles();
-
+    this.articlesService.GetArticles()
+      .subscribe((r: any) => {
+        this.articles = r.filter((a: any) => {
+          let tagsNames = a.tags.map((t: any) => t.name);
+          return this.selectedTags.every((t: any) => tagsNames.includes(t));
+        });
+      });
   }
   addTag() {
     let inputUp = this.inputTag.toUpperCase();
@@ -84,6 +65,6 @@ export class AdminComponent implements OnInit {
               this.deleted = true;
             }, 2000)
           }
-        })        
+        })
   }
 }
