@@ -6,8 +6,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
+
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -37,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatPaginatorModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },

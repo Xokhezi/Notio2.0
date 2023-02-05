@@ -11,6 +11,12 @@
                     class="bi bi-x"></i></button>
         </div>
     </div>
+    <mat-paginator #pag   (page)="addNewItem(pag)"
+    [length]="100" 
+    [pageSize]="query.size"
+    [pageSizeOptions]="[1,5, 10, 25, 100]"
+     aria-label="Select page">    
+    </mat-paginator>
     <div *ngFor="let a of articles" class="article">
         <div class="description">
             <h5>{{a.topic}}</h5>
@@ -22,5 +28,5 @@
             <button class="btn btn-secondary" *ngFor="let t of a.tags">{{t.name}}</button>
             <button (click)="removeArt(a.id)" class="btn btn-danger">Smazat</button>
         </div>
-    </div>
+    </div>    
 </div>

@@ -13,7 +13,7 @@ export class ArticlesComponent implements OnInit {
   tags: any;
   selectedTags: any;
   inValidTag: any;
-  query:any={page:1,size:2   
+  query={size:5,page:0   
   };
   loading = true;
   constructor(private articlesService: ArticlesService, private tagsService: TagsService) { }
@@ -27,6 +27,11 @@ export class ArticlesComponent implements OnInit {
         this.loading = false;
 
       })
+  }
+  addNewItem(value: any) {   
+    this.query.page=value.pageIndex;
+    this.query.size=value.pageSize;
+    this.getArticles();    
   }
   filterArticles() {
     this.articlesService.GetArticles(this.query).subscribe((r:any) => {

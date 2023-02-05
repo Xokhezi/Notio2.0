@@ -1,8 +1,9 @@
 <div class="container center">
     <mat-spinner *ngIf="loading"></mat-spinner>
 
-    <div>
-        <input *ngIf="this.selectedTags.length<5" [(ngModel)]="inputTag" (keyup.enter)="addTag()" type="text" class="form-control">
+    <div *ngIf="!loading">
+        <input *ngIf="this.selectedTags.length<5" [(ngModel)]="inputTag" (keyup.enter)="addTag()" type="text"
+            class="form-control">
         <div class="form-text">Zadejte tag.</div>
         <div *ngIf="inValidTag" class="form-text">Nejedná se o existující Tag.Přehled tagů najdete v sekci <a>tagy</a>
         </div>
@@ -10,8 +11,11 @@
             <button (click)="removeTag(t)" *ngFor="let t of selectedTags" class="btn btn-secondary">{{t}}<i
                     class="bi bi-x"></i></button>
         </div>
-       
+
     </div>
+    <mat-paginator #pag (page)="addNewItem(pag)" [length]="100" [pageSize]="query.size" 
+[pageSizeOptions]="[1,5, 10, 25, 100]" aria-label="Select page">
+</mat-paginator>
     <div *ngFor="let a of articles" class="article">
         <div class="description">
             <h2><a [routerLink]="['/article/',a.id]">{{a.topic}}</a></h2>

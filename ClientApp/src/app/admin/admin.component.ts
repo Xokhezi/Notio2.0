@@ -9,7 +9,7 @@ import { TagsService } from '../services/tags.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  query:any={page:2,size:2   
+  query:any={page:0,size:5   
   };
   articles: any;
   inputTag: any;
@@ -33,6 +33,11 @@ export class AdminComponent implements OnInit {
           return this.selectedTags.every((t: any) => tagsNames.includes(t));
         });
       });
+  }
+  addNewItem(value: any) {   
+    this.query.page=value.pageIndex;
+    this.query.size=value.pageSize;
+    this.getArticles();    
   }
   addTag() {
     let inputUp = this.inputTag.toUpperCase();
@@ -63,9 +68,10 @@ export class AdminComponent implements OnInit {
       this.articlesService.DeleteArticle(id)
         .subscribe({
           complete: () => {
+            this.getArticles();
             setTimeout(() => {
               this.deleted = true;
-            }, 2000)
+            }, 300)
           }
         })
   }

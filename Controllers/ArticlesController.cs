@@ -29,12 +29,15 @@ namespace Notio2._0.Controllers
             var articles = await context.Articles.Include(a => a.Tags).ToListAsync();
             var queryObj = mapper.Map<IEnumerable<Article>, IEnumerable<ArticleResource>>(articles);
 
-            if (query.Page <= 0)
-                query.Page = 1;
             if (query.Size <= 0)
-                query.Size = 10;
+                query.Size = 5;
 
-            return queryObj.Skip((query.Page - 1) * query.Size).Take(query.Size);
+            if (query.Page == 0)
+                return queryObj.Take(query.Size);
+            else if (query.Page == 1)
+                return queryObj.Skip(query.Size).Take(query.Size);
+            else
+                return queryObj.Skip((query.Page) * query.Size).Take(query.Size);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetArticle(int id)
